@@ -14,11 +14,10 @@ func TestActiveObject(t *testing.T) {
 	var wait sync.WaitGroup
 	wait.Add(1)
 
-	activeObject = NewActiveObjectWithInterval(time.Millisecond * 50)
-
 	counter := 0
-	activeObject.SetWorkerFunction(func(param interface{}) {
-		assert.Equal(t, param, 20, "param is incorrect")
+
+	activeObject = NewActiveObjectWithInterval(time.Millisecond*50, func(param interface{}) {
+		assert.Equal(t, param, 10, "param is incorrect")
 
 		counter++
 

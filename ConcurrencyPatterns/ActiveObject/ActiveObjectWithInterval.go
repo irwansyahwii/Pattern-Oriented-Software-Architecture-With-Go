@@ -13,9 +13,9 @@ type ActiveObjectWithInterval struct {
 	doneChannel    chan bool
 }
 
-func NewActiveObjectWithInterval(duration time.Duration) *ActiveObjectWithInterval {
+func NewActiveObjectWithInterval(duration time.Duration, workerFunction func(param interface{})) *ActiveObjectWithInterval {
 
-	return &ActiveObjectWithInterval{duration: duration, doneChannel: make(chan bool)}
+	return &ActiveObjectWithInterval{duration: duration, doneChannel: make(chan bool), workerFunction: workerFunction}
 }
 
 func (activeObject *ActiveObjectWithInterval) SetWorkerFunction(workerFunction func(param interface{})) {
