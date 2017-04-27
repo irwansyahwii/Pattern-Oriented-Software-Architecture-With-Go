@@ -31,6 +31,7 @@ func (activeObject *ActiveObjectWithInterval) Run(param interface{}) error {
 
 	activeObject.ticker = time.NewTicker(activeObject.duration)
 
+	activeObject.isStopped = false
 	go func() {
 		for {
 			select {
@@ -49,6 +50,7 @@ func (activeObject *ActiveObjectWithInterval) Run(param interface{}) error {
 
 func (activeObject *ActiveObjectWithInterval) ForceStop() {
 
+	activeObject.isStopped = true
 	activeObject.doneChannel <- true
 
 }
