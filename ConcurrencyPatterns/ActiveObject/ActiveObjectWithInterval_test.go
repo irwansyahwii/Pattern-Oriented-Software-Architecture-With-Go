@@ -18,6 +18,8 @@ func TestActiveObject(t *testing.T) {
 
 	counter := 0
 	activeObject.SetWorkerFunction(func(param interface{}) {
+		assert.Equal(t, param, 20, "param is incorrect")
+
 		counter++
 
 		if counter > 3 {
