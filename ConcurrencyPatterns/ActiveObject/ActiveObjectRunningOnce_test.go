@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestActiveObjectWithInterval(t *testing.T) {
+func TestActiveObjectRunningOnce(t *testing.T) {
 	var activeObject IActiveObject
 
 	var wait sync.WaitGroup
@@ -16,14 +16,12 @@ func TestActiveObjectWithInterval(t *testing.T) {
 
 	counter := 0
 
-	activeObject = NewActiveObjectWithInterval(time.Millisecond*50, func(param interface{}) {
+	activeObject = NewActiveObjectRunningOnce(time.Millisecond*50, func(param interface{}) {
 		assert.Equal(t, param, 10, "param is incorrect")
 
 		counter++
 
-		if counter > 3 {
-			wait.Done()
-		}
+		wait.Done()
 	})
 
 	activeObject.Run(10)
@@ -34,5 +32,5 @@ func TestActiveObjectWithInterval(t *testing.T) {
 
 	time.Sleep(time.Millisecond * 1000)
 
-	assert.Equal(t, counter, 4, "counter is wrong")
+	assert.Equal(t, counter, 1, "counter is wrong")
 }

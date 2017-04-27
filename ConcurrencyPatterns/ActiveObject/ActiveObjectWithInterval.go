@@ -7,19 +7,21 @@ import (
 
 //ActiveObjectWithInterval implements IActiveObject with behavior running in a specified interval
 type ActiveObjectWithInterval struct {
-	workerFunction func(params interface{})
-	ticker         *time.Ticker
-	duration       time.Duration
-	doneChannel    chan bool
+	ticker      *time.Ticker
+	doneChannel chan bool
+
+	ActiveObjectRunningOnce
 }
 
 func NewActiveObjectWithInterval(duration time.Duration, workerFunction func(param interface{})) *ActiveObjectWithInterval {
 
-	return &ActiveObjectWithInterval{duration: duration, doneChannel: make(chan bool), workerFunction: workerFunction}
-}
+	activeObject := &ActiveObjectWithInterval{}
 
-func (activeObject *ActiveObjectWithInterval) SetWorkerFunction(workerFunction func(param interface{})) {
+	activeObject.duration = duration
 	activeObject.workerFunction = workerFunction
+	activeObject.doneChannel = make(chan bool)
+
+	return activeObject
 }
 
 func (activeObject *ActiveObjectWithInterval) Run(param interface{}) error {
@@ -46,5 +48,7 @@ func (activeObject *ActiveObjectWithInterval) Run(param interface{}) error {
 }
 
 func (activeObject *ActiveObjectWithInterval) ForceStop() {
+
 	activeObject.doneChannel <- true
+
 }
