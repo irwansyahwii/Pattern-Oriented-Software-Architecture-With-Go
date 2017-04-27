@@ -36,6 +36,7 @@ func (activeObject *ActiveObjectWithInterval) Run(params ...interface{}) error {
 				activeObject.workerFunction(params)
 
 			case <-activeObject.doneChannel:
+				activeObject.ticker.Stop()
 				return
 			}
 		}
