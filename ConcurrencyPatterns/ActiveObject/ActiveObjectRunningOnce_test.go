@@ -16,7 +16,7 @@ func TestActiveObjectRunningOnce(t *testing.T) {
 
 	counter := 0
 
-	activeObject = NewActiveObjectRunningOnce(time.Millisecond*50, func(param interface{}) {
+	activeObject = NewActiveObjectRunningOnce(func(param interface{}) {
 		assert.Equal(t, param, 10, "param is incorrect")
 
 		counter++

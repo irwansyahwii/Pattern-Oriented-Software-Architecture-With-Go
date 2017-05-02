@@ -9,6 +9,7 @@ import (
 type ActiveObjectWithInterval struct {
 	ticker      *time.Ticker
 	doneChannel chan bool
+	duration    time.Duration
 
 	ActiveObjectRunningOnce
 }
