@@ -2,20 +2,17 @@ package ActiveObject
 
 import (
 	"errors"
-	"time"
 )
 
 //ActiveObjectRunningOnce implements IActiveObject with behavior running in a specified interval
 type ActiveObjectRunningOnce struct {
 	workerFunction func(params interface{})
-	duration       time.Duration
 	isStopped      bool
 }
 
-func NewActiveObjectRunningOnce(duration time.Duration, workerFunction func(param interface{})) *ActiveObjectRunningOnce {
+func NewActiveObjectRunningOnce(workerFunction func(param interface{})) *ActiveObjectRunningOnce {
 
-	return &ActiveObjectRunningOnce{duration: duration, workerFunction: workerFunction}
-
+	return &ActiveObjectRunningOnce{workerFunction: workerFunction}
 }
 func (activeObject *ActiveObjectRunningOnce) SetWorkerFunction(workerFunction func(param interface{})) {
 
